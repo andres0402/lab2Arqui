@@ -3,6 +3,8 @@ package co.edu.javeriana.as.personapp.terminal.adapter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import co.edu.javeriana.as.personapp.common.exceptions.NoExistException;
+import co.edu.javeriana.as.personapp.domain.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -54,6 +56,34 @@ public class PersonaInputAdapterCli {
 	    personInputPort.findAll().stream()
 	        .map(personaMapperCli::fromDomainToAdapterCli)
 	        .forEach(System.out::println);
+	}
+	public void encontrarUno(Integer identificacion){
+		log.info("Into encontrar uno.");
+		try {
+				Person person = personInputPort.findOne(identificacion);
+				if(person!=null){
+					System.out.println(personaMapperCli.fromDomainToAdapterCli(person).toString());
+				}
+		} catch (NoExistException e) {
+			System.out.println("El usuario no existe.");
+		}
+	}
+	public void agregar(Person newPerson){
+		log.info("Into historial PersonaEntity in Input Adapter");
+		Person person = personInputPort.create(newPerson);
+		System.out.println("Se creo el usuario: "+ personaMapperCli.fromDomainToAdapterCli(person).toString());
+	}
+	public void editar(Person newPerson) throws NoExistException{
+		log.info("Into historial PersonaEntity in Input Adapter");
+		Person person = personInputPort.edit(newPerson.getIdentification(), newPerson);
+		if(person!=null)
+			System.out.println("Se creo el usuario: "+ personaMapperCli.fromDomainToAdapterCli(person).toString());
+	}
+	public void eliminar(Integer identificacion) throws NoExistException{
+		log.info("Into historial PersonaEntity in Input Adapter");
+		boolean eliminado = personInputPort.drop(identificacion);
+		if(eliminado==true)
+			System.out.println("El registro ha sido eliminado.");
 	}
 
 }

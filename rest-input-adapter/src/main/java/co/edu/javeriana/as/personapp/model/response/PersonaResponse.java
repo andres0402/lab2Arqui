@@ -11,7 +11,7 @@ public class PersonaResponse extends PersonaRequest{
 		this.status = status;
 	}
 
-	public String getStatus() {
+    public String getStatus() {
 		return status;
 	}
 

@@ -16,6 +16,7 @@ import java.util.List;
 public class StudyUseCase implements StudyInputPort {
     private StudyOutputPort studyPersistence;
 
+
     public StudyUseCase(@Qualifier("studyOutputAdapterMaria") StudyOutputPort studyPersintence) {
         this.studyPersistence=studyPersintence;
     }

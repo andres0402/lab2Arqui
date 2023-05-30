@@ -3,6 +3,7 @@ package co.edu.javeriana.as.personapp.terminal.menu;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import co.edu.javeriana.as.personapp.common.exceptions.NoExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -32,7 +33,7 @@ public class MenuPrincipal {
         this.keyboard = new Scanner(System.in);
     }
 
-	public void inicio() {
+	public void inicio() throws NoExistException {
 		
 		//personaMenu = new PersonaMenu(personaInputAdapterCli);
 		boolean isValid = false;
